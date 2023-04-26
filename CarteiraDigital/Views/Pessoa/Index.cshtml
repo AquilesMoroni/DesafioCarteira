@@ -36,8 +36,7 @@
                 <a asp-controller="Pessoa" asp-action="Deletar" asp-route-id="@item.Id">Deletar</a>
                 <a asp-controller="Pessoa" asp-action="Atualizar" asp-route-id="@item.Id">Atualizar</a>
                 <a asp-controller="Pessoa" asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a>
-                <a asp-controller="Pessoa" asp-action="Movimentos Entrada" asp-route-id="@item.Id">Movimentos Entrada</a>
-                <a asp-controller="Pessoa" asp-action="Movimentos Saída" asp-route-id="@item.Id">Movimentos Saída</a>
+                <a asp-controller="Movimentos" asp-action="GeraMovimentos" asp-route-id="@item.Id">Movimentos</a>
             </td> 
         </tr>
  }

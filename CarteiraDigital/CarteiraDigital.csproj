@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Movimentos\**" />
-    <Content Remove="Views\Movimentos\**" />
-    <EmbeddedResource Remove="Views\Movimentos\**" />
-    <None Remove="Views\Movimentos\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Mapeamentos\MovimentoEntrada.hbm.xml" />
     <None Remove="Mapeamentos\MovimentoSaida.hbm.xml" />
     <None Remove="Mapeamentos\Pessoa.hbm.xml" />
