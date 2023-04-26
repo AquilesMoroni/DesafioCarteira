@@ -17,9 +17,6 @@ namespace CarteiraDigital.Controllers
         public IActionResult GeraMovimentos()
         {
             return View();
-        }
-        // mudei aguma coisa aqui
-
-
+        } 
     }
-}
+} 
