@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+			assembly="CarteiraDigital"
+	   namespace="CarteiraDigital.Models">
+
+	<class name="Pessoa">
+		<id name="Id">
+			<generator class="identity"/>
+		</id>
+
+		<property name="Nome" not-null="true"/> 
+
+		<property name="Email" not-null="true"/>
+
+		<property name="Salario"/>
+
+		<property name="Limite"/>
+
+		<property name="Minimo" not-null="true"/>
+
+		<property name="Saldo" not-null="true"/>
+
+		<bag name="Entradas" inverse="true" cascade="all">
+			<key column="PessoaId"/>
+			<one-to-many class="MovimentoEntrada"/>
+		</bag>
+
+		<bag name="Saidas" inverse="true" cascade="all">
+			<key column="PessoaId"/>
+			<one-to-many class="MovimentoSaida"/>
+		</bag>
+		
+	</class>	
+</hibernate-mapping>

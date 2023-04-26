@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+			assembly="CarteiraDigital"
+	   namespace="CarteiraDigital.Models">
+
+	<class name="MovimentoEntrada">
+		<id name="EntradaId">
+			<generator class="identity"/>
+		</id>
+		<property name="DataEntrada" not-null="true"/>
+		<property name="Descricao" not-null="true"/>
+		<property name="Valor" not-null="true"/> 
+
+		<many-to-one name="PessoaId" column="PessoaId" not-null="true"/>
+	</class>
+
+</hibernate-mapping> 
