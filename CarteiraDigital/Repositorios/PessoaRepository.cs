@@ -1,6 +1,5 @@
 ﻿using CarteiraDigital.Models;
 using NHibernate;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,4 +97,4 @@ namespace CarteiraDigital.Repositorios
             }
         }
     }
-}
+} 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarteiraDigital.Repositorios
@@ -11,6 +9,6 @@ namespace CarteiraDigital.Repositorios
         Task Remove(int id);
         Task Update(T item);
         Task<T> FindByID(int id);
-        IEnumerable<T> FindAll();
+        IEnumerable<T> FindAll(); 
     }
 } 
