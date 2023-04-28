@@ -546,3 +546,4 @@ C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\CarteiraDigital.pdb
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\CarteiraDigital.genruntimeconfig.cache
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\GeraMovimentos.cshtml.g.cs
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\GeraMovimentos.cshtml.g.cs
