@@ -9137,19 +9137,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aquiles Moroni\\.nuget\\packages\\": {}
+    "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
+      "projectUniqueName": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
       "projectName": "CarteiraDigital",
-      "projectPath": "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
-      "packagesPath": "C:\\Users\\Aquiles Moroni\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\obj\\",
+      "projectPath": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
+      "packagesPath": "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Aquiles Moroni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Multisoftware Nstech\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9226,7 +9226,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }
