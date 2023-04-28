@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CarteiraDigital.Models
 {
-    public class MovimentoEntrada : Movimentos
+    public class MovimentoEntrada
     {
         public virtual int EntradaId { get; set; }
 
@@ -13,8 +13,13 @@ namespace CarteiraDigital.Models
 
         public virtual string Descricao { get; set; }
 
-        public virtual decimal Valor { get; set; } 
+        public virtual decimal Valor { get; set; }
 
-        public virtual Pessoa PessoaId { get; set; } 
+        public virtual Pessoa PessoaId { get; set; }
+
+        public MovimentoEntrada()
+        {
+            this.DataEntrada = DateTime.Now;
+        }
     }
-}
+} 

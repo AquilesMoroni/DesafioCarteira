@@ -6,36 +6,53 @@
 
 <h1>Detalhes</h1>
 
-<div class="card ">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs pull-right" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="id-tab" data-toggle="tab" href="#id" role="tab" aria-controls="id" aria-selected="true">Id</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="nome-tab" data-toggle="tab" href="#nome" role="tab" aria-controls="nome" aria-selected="false">Nome</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="email-tab" data-toggle="tab" href="#email" role="tab" aria-controls="email" aria-selected="false">Email</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="salario-tab" data-toggle="tab" href="#salario" role="tab" aria-controls="salario" aria-selected="false">Salário</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="limite-tab" data-toggle="tab" href="#limite" role="tab" aria-controls="limite" aria-selected="false">Limite</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="minimo-tab" data-toggle="tab" href="#minimo" role="tab" aria-controls="minimo" aria-selected="false">Mínimo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="saldo-tab" data-toggle="tab" href="#saldo" role="tab" aria-controls="saldo" aria-selected="false">Saldo</a>
-            </li>
-        </ul>
+<div class="card mt-4">
+
+    <div class="card">
+        <div class="card-header">Dados Pessoais</div>
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="Id" class="control-label">Id</label>
+                <input asp-for="Id" class="form-control" disabled/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label">Nome</label>
+                <input asp-for="Nome" class="form-control"disabled/>
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" disabled/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salario" class="control-label">Salário</label>
+                <input asp-for="Salario" class="form-control" disabled/>
+                <span asp-validation-for="Salario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Limite" class="control-label">Limite</label>
+                <input asp-for="Limite" class="form-control" disabled/>
+                <span asp-validation-for="Limite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Minimo" class="control-label">Mínimo</label>
+                <input asp-for="Minimo" class="form-control" disabled/>
+                <span asp-validation-for="Minimo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Saldo" class="control-label">Saldo</label>
+                <input asp-for="Saldo" class="form-control" disabled/>
+                <span asp-validation-for="Saldo" class="text-danger"></span>
+            </div>
+        </div>
     </div>
+</div>
 
     <div class="card-body">
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="id" role="tabpanel" aria-labelledby="id-tab">@Html.DisplayFor(model => model.Id)</div>
+            <div class="tab-pane fade" id="id" role="tabpanel" aria-labelledby="id-tab">@Html.DisplayFor(model => model.Id)</div>
             <div class="tab-pane fade" id="nome" role="tabpanel" aria-labelledby="nome-tab">@Html.DisplayFor(model => model.Nome)</div>
             <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">@Html.DisplayFor(model => model.Email)</div>
             <div class="tab-pane fade" id="salario" role="tabpanel" aria-labelledby="salario-tab">@Html.DisplayFor(model => model.Salario)</div>
@@ -44,8 +61,7 @@
             <div class="tab-pane fade" id="saldo" role="tabpanel" aria-labelledby="saldo-tab">@Html.DisplayFor(model => model.Saldo)</div> 
         </div>
     </div>
-</div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Index" class="btn btn-light mb-2">Voltar</a>
 </div>

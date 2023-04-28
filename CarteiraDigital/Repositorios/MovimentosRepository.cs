@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarteiraDigital.Repositorios
+﻿namespace CarteiraDigital.Repositorios
 {
     public class MovimentosRepository
     {
-
-
-
 
     }
 }
