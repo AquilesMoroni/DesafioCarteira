@@ -547,3 +547,11 @@ C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\CarteiraDigital.genruntimeconfig.cache
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\GeraMovimentos.cshtml.g.cs
 C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\GeraMovimentos.cshtml.g.cs
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\System.Web.Mvc.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\System.Web.Razor.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\System.Web.Helpers.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\System.Web.WebPages.Deployment.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\System.Web.WebPages.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\bin\Debug\net5.0\pt-br\System.Web.Mvc.resources.dll

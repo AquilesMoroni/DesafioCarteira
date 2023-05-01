@@ -17,6 +17,7 @@ namespace CarteiraDigital.Models
 
         [Required(ErrorMessage = "O campo Salário é obrigatório!")]
         [Range(0, double.MaxValue, ErrorMessage = "O campo Salário deve ser maior ou igual a zero!")]
+        [DataType(DataType.Currency)]
         public virtual decimal Salario { get; set; }
 
         [Required(ErrorMessage = "O campo Limite é obrigatório!")]
@@ -27,7 +28,7 @@ namespace CarteiraDigital.Models
         [Range(0, double.MaxValue, ErrorMessage = "O campo Mínimo deve ser maior ou igual a zero!")]
         public virtual decimal Minimo { get; set; }
 
-        public virtual decimal Saldo { get; set; } 
+        public virtual decimal Saldo { get; set; }  
 
         public virtual IList<MovimentoEntrada> Entradas { get; set; }
         

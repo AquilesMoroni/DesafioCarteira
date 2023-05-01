@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj": {}
+    "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj": {
+    "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
+        "projectUniqueName": "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
         "projectName": "CarteiraDigital",
-        "projectPath": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
-        "packagesPath": "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\obj\\",
+        "projectPath": "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
+        "packagesPath": "C:\\Users\\Aquiles Moroni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Aquiles Moroni\\Documents\\GitHub\\DesafioCarteira\\CarteiraDigital\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Multisoftware Nstech\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Aquiles Moroni\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNet.Mvc.pt-br": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.1.1, )"
@@ -91,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     }

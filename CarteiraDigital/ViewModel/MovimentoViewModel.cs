@@ -13,4 +13,4 @@ namespace CarteiraDigital.ViewModel
 
         public bool TipoMovimento { get; set; }
     }
-}
+} 
