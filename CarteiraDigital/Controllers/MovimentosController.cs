@@ -69,28 +69,24 @@ namespace CarteiraDigital.Controllers
         [HttpPost]
         public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
         {
-            if(movimento.TipoMovimento == true)
+            if (movimento.TipoMovimento == true)
             {
                 await Deposito(movimento);
             }
-
-            await Saque(movimento);
-
-            MovimentoSaida saida = new MovimentoSaida();
-            saida.PessoaId = await pessoaRepository.FindByID(movimento.PessoaId);
-            //saida.PessoaId.Saldo = movimento.Valor;
-
-            
-
-            
-            
-            if(movimento.Valor > saida.PessoaId.Saldo)
+            else
             {
-                System.Console.WriteLine("O saldo foi maior!");
+                var pessoa = await pessoaRepository.FindByID(movimento.PessoaId);
+
+                if (movimento.Valor > pessoa.Saldo) 
+                {
+                    ModelState.AddModelError("Valor", "Saldo insuficiente para realizar o saque.");
+                    return View(movimento);
+                }
+                else
+                {
+                    await Saque(movimento);
+                }
             }
-
-            else { System.Console.WriteLine("O saque não foi maior!"); }
-
 
             return RedirectToAction("GeraMovimentos", movimento);
         } 
