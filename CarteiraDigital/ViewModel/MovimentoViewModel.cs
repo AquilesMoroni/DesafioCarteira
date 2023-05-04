@@ -16,9 +16,9 @@ namespace CarteiraDigital.ViewModel
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "O campo valor é obrigatório", AllowEmptyStrings = false)]
-        [Range(0, double.MaxValue, ErrorMessage = "Não é possível inserir um número menor ou igual a zero!")]
+        [Range(0, double.MaxValue, ErrorMessage = "Não é possível inserir um número menor ou igual a zero!")] 
         public decimal Valor { get; set; }
 
-        public bool TipoMovimento { get; set; }
+        public int TipoMovimento { get; set; }
     }
 } 

@@ -2,10 +2,6 @@
 using CarteiraDigital.Repositorios;
 using CarteiraDigital.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NHibernate;
-using NHibernate.Mapping;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarteiraDigital.Controllers
@@ -40,7 +36,6 @@ namespace CarteiraDigital.Controllers
             //ATUALIZA SALDO PESSOA
             entrada.PessoaId.Saldo =  entrada.PessoaId.Saldo + entrada.Valor;
 
-
             //SALVA NO BANCO AS ALTERAÇõES E ADICIONA UM MOVIMENTO
             await movimentosRepository.Add(entrada);
             await pessoaRepository.Update(entrada.PessoaId);
@@ -56,12 +51,17 @@ namespace CarteiraDigital.Controllers
             saida.Valor = movimento.Valor;
             saida.PessoaId = await pessoaRepository.FindByID(movimento.PessoaId);
 
-            //ATUALIZA SALDO PESSOA
-            saida.PessoaId.Saldo = saida.PessoaId.Saldo - saida.Valor;
+            if (movimento.Valor > saida.PessoaId.Saldo + saida.PessoaId.Limite)
+            {
+                return false;  
+            }
+            else
+            {
+                saida.PessoaId.Saldo = saida.PessoaId.Saldo - movimento.Valor;
 
-            //SALVA NO BANCO AS ALTERAÇõES E ADICIONA UM MOVIMENTO
-            await movimentosRepository.Add(saida);
-            await pessoaRepository.Update(saida.PessoaId); 
+                await movimentosRepository.Add(saida);
+                await pessoaRepository.Update(saida.PessoaId);
+            }
 
             return true;
         }
@@ -69,26 +69,20 @@ namespace CarteiraDigital.Controllers
         [HttpPost]
         public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
         {
-            if (movimento.TipoMovimento == true)
+            if (movimento.TipoMovimento == 1)
             {
                 await Deposito(movimento);
             }
             else
             {
-                var pessoa = await pessoaRepository.FindByID(movimento.PessoaId);
-
-                if (movimento.Valor > pessoa.Saldo) 
+                if (!await Saque(movimento))
                 {
-                    ModelState.AddModelError("Valor", "Saldo insuficiente para realizar o saque.");
+                    ModelState.AddModelError(string.Empty, "Você não possui Saldo e nem Limite suficientes para realizar o Saque.");
                     return View(movimento);
-                }
-                else
-                {
-                    await Saque(movimento);
                 }
             }
 
-            return RedirectToAction("GeraMovimentos", movimento);
+             return RedirectToAction("GeraMovimentos", movimento);
         } 
     }
 } 
