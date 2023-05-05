@@ -21,8 +21,7 @@ namespace CarteiraDigital.Controllers
         {
             MovimentoViewModel movimento = new MovimentoViewModel();
             movimento.PessoaId = id;
-            
-            return View(movimento);
+            return View(movimento); 
         }
 
         public async Task<bool> Deposito(MovimentoViewModel movimento)
@@ -45,7 +44,6 @@ namespace CarteiraDigital.Controllers
 
         public async Task<bool> Saque(MovimentoViewModel movimento)
         {
-            //CONVERSÃO PARA MOVIMENTO SAIDA
             MovimentoSaida saida = new MovimentoSaida();
             saida.Descricao = movimento.Descricao;
             saida.Valor = movimento.Valor;
@@ -58,7 +56,7 @@ namespace CarteiraDigital.Controllers
             else
             {
                 saida.PessoaId.Saldo = saida.PessoaId.Saldo - movimento.Valor;
-
+            
                 await movimentosRepository.Add(saida);
                 await pessoaRepository.Update(saida.PessoaId);
             }
