@@ -1391,6 +1391,9 @@
           "lib/net5.0/StackExchange.Redis.dll": {}
         }
       },
+      "SweetAlert/1.0.0": {
+        "type": "package"
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -5016,6 +5019,28 @@
         "lib/netstandard2.0/StackExchange.Redis.xml",
         "stackexchange.redis.2.6.104.nupkg.sha512",
         "stackexchange.redis.nuspec"
+      ]
+    },
+    "SweetAlert/1.0.0": {
+      "sha512": "eaHJph59CQhNUf5h6k02LaWM31az2t8JBHcJuVXW2dZ+QU2TDkHCxOUSNdAVIgfj+ivQsBTp6laWt8H0nKAydQ==",
+      "type": "package",
+      "path": "sweetalert/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Content/bootstrap/mixins.less",
+        "content/Content/bootstrap/variables.less",
+        "content/Content/sweetalert/bootstrap-sweetalert.png",
+        "content/Content/sweetalert/docs.css",
+        "content/Content/sweetalert/sweet-alert-animations.less",
+        "content/Content/sweetalert/sweet-alert-combine.less",
+        "content/Content/sweetalert/sweet-alert.css",
+        "content/Content/sweetalert/sweet-alert.less",
+        "content/Content/sweetalert/thumbs-up.jpg",
+        "content/Controllers/SweetController.cs",
+        "content/Views/Sweet/Alert.cshtml",
+        "sweetalert.1.0.0.nupkg.sha512",
+        "sweetalert.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -9133,6 +9158,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
       "NHibernate >= 5.4.2",
       "StackExchange.Redis >= 2.6.104",
+      "SweetAlert >= 1.0.0",
       "System.Data.SqlClient >= 4.8.5"
     ]
   },
@@ -9202,6 +9228,10 @@
           "StackExchange.Redis": {
             "target": "Package",
             "version": "[2.6.104, )"
+          },
+          "SweetAlert": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",

@@ -4,41 +4,69 @@
     ViewData["Title"] = "GeraMovimentos";
 }
 
-<h1>GeraMovimentos</h1>
-
-<h4>MovimentoViewModel</h4>
-<hr />
+<h1>Movimentos</h1>
 <div class="row">
     <div class="col-md">
-        <form asp-action="GeraMovimentos">
+        <form asp-action="GeraMovimentos" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PessoaId" class="form-control" />
             <div class="form-group">
                 <label asp-for="Descricao" class="control-label">Descrição</label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+                <input asp-for="Descricao" class="form-control" id="descricao" value=""/>
+                <span asp-validation-for="Descricao" class="text-danger" id="erro-desc"></span> 
             </div>
             <div class="form-group">
                 <label asp-for="Valor" class="control-label">Valor</label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
+                <input asp-for="Valor" class="form-control" id="valor" value="" />
+                <span asp-validation-for="Valor" class="text-danger" id="erro-valor"></span>
             </div>
-            <div class="form-group form-check p-0">
+            <div class="form-group form-check p-0 mt-3 mb-0">
                 <div class="form-check form-check-inline">
-                    <input asp-for="TipoMovimento" class="form-check-input" value="1" type="radio">
+                    <input asp-for="TipoMovimento" class="form-check-input" value="1" type="radio" id="movimento-ent">
                     <label asp-for="TipoMovimento" class="form-check-label" for="inlineRadio1">Entrada</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="TipoMovimento" class="form-check-input" value="2" type="radio"> 
+                    <input asp-for="TipoMovimento" class="form-check-input" value="2" type="radio" id="movimento-sai">
                     <label asp-for="TipoMovimento" class="form-check-label" for="inlineRadio2">Saída</label>
                 </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Criar Movimento" class="btn btn-dark" />
+            <span asp-validation-for="TipoMovimento" class="text-danger" id="erro-movimento"></span>
+            <div class="form-group mt-1">
+                <input type="submit" value="Criar Movimento" class="btn btn-dark mt-3" id="btn_criaMovimento" />
+                @Html.Raw(ViewBag.Script)
             </div>
         </form>
     </div>
 </div>
+
 <div>
     <a asp-controller="Pessoa" asp-action="Index" class="btn btn-light">Voltar</a>
 </div>
+
+<script>
+    document.getElementById('movimento-ent').checked = false;
+    document.getElementById('movimento-sai').checked = false;
+
+    document.getElementById('btn_criaMovimento').addEventListener('click', function (event) {
+        var descricaoInput = document.getElementById('descricao').value;
+        var valorInput = document.getElementById('valor').value;
+        var erroDesc = document.getElementById('erro-desc');
+        var erroValor = document.getElementById('erro-valor');
+        var movimentoEntInput = document.getElementById('movimento-ent');
+        var movimentoSaiInput = document.getElementById('movimento-sai');
+        var erroMovimento = document.getElementById('erro-movimento');
+
+        if (descricaoInput.trim() === '') {
+            event.preventDefault();
+            erroDesc.textContent = "O Campo Descrição é Obrigatório!";
+        }
+        if (valorInput.trim() === '') {
+            event.preventDefault();
+            erroValor.textContent = "O Campo Valor é Obrigatório!";
+        }
+        if (!movimentoEntInput.checked && !movimentoSaiInput.checked) {
+            event.preventDefault();
+            erroMovimento.textContent = "O Campo Movimento é Obrigatório!"; 
+        } 
+    })
+</script> 

@@ -12,7 +12,7 @@ namespace CarteiraDigital.Controllers
         private readonly PessoaRepository pessoaRepository;
 
         public MovimentosController(NHibernate.ISession session) { 
-                movimentosRepository = new MovimentosRepository(session);
+                movimentosRepository = new MovimentosRepository(session); 
                 pessoaRepository = new PessoaRepository(session);
         } 
 
@@ -26,20 +26,17 @@ namespace CarteiraDigital.Controllers
 
         public async Task<bool> Deposito(MovimentoViewModel movimento)
         {
-            //CONVERSÃO PARA MOVIMENTO ENTRADA
             MovimentoEntrada entrada = new MovimentoEntrada();
             entrada.Descricao = movimento.Descricao;
             entrada.Valor = movimento.Valor;
             entrada.PessoaId = await pessoaRepository.FindByID(movimento.PessoaId);
 
-            //ATUALIZA SALDO PESSOA
-            entrada.PessoaId.Saldo =  entrada.PessoaId.Saldo + entrada.Valor;
+            entrada.PessoaId.Saldo = entrada.PessoaId.Saldo + entrada.Valor;
 
-            //SALVA NO BANCO AS ALTERAÇõES E ADICIONA UM MOVIMENTO
             await movimentosRepository.Add(entrada);
-            await pessoaRepository.Update(entrada.PessoaId);
+            await pessoaRepository.Update(entrada.PessoaId); 
 
-            return true;
+            return true; 
         }
 
         public async Task<bool> Saque(MovimentoViewModel movimento)
@@ -67,20 +64,22 @@ namespace CarteiraDigital.Controllers
         [HttpPost]
         public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
         {
-            if (movimento.TipoMovimento == 1)
+            if (movimento.TipoMovimento == 1 && await Deposito(movimento))
             {
-                await Deposito(movimento);
+                    ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Depósito Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
+                    return View(movimento); 
             }
-            else
+            else 
             {
                 if (!await Saque(movimento))
                 {
-                    ModelState.AddModelError(string.Empty, "Você não possui Saldo e nem Limite suficientes para realizar o Saque.");
+                    ViewBag.Script = "<script>Swal.fire({icon: 'error', title: 'Atenção', text: 'Você não possui saldo e nem limite suficientes para realizar o saque', position: 'bottom-center', timer: 2500, showConfirmButton: false});</script>";
                     return View(movimento);
                 }
-            }
 
-             return RedirectToAction("GeraMovimentos", movimento);
+                    ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Saque Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
+                    return View(movimento);  
+            }
         } 
     }
 } 

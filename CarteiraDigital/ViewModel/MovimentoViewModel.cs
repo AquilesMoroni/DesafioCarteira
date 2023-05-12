@@ -11,12 +11,8 @@ namespace CarteiraDigital.ViewModel
     {
         public int PessoaId { get; set; }
 
-        [Required(ErrorMessage = "A descrição é obrigatória", AllowEmptyStrings = false)]
-        [StringLength(35, MinimumLength = 1)]
         public string Descricao { get; set; }
 
-        [Required(ErrorMessage = "O campo valor é obrigatório", AllowEmptyStrings = false)]
-        [Range(0, double.MaxValue, ErrorMessage = "Não é possível inserir um número menor ou igual a zero!")] 
         public decimal Valor { get; set; }
 
         public int TipoMovimento { get; set; }

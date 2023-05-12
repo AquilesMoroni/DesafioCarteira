@@ -24,6 +24,13 @@ namespace CarteiraDigital.Controllers
             return View();
         }
 
+        //public IActionResult TestSweetAlert()
+        //{
+        //    TempData["SwalSuccess"] = "O teste do Sweet Alert foi realizado com sucesso!";
+        //    return RedirectToAction("Index"); 
+        //}
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

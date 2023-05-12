@@ -25,6 +25,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="NHibernate" Version="5.4.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.104" />
+    <PackageReference Include="SweetAlert" Version="1.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 

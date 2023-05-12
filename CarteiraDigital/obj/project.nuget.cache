@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GCJumlUfKDI+L9OC5hL8Af+PlGA0b1IwQhXR7+0kVwkx7pgO4WW9MJPv1Pe+70YYYgrT9V4KA2wp92pC4bL8mA==",
+  "dgSpecHash": "e/2hmtD3V3V3eXZ9T+YVezm7BNQMHNdLT5acZe0Bse4wZfYkBMFtqJv5gptRcw4fR+aZpZKD8pYlT0hnEbGzUw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Multisoftware Nstech\\Desktop\\DesafioCarteira\\CarteiraDigital\\CarteiraDigital.csproj",
   "expectedPackageFiles": [
@@ -97,6 +97,7 @@
     "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\stackexchange.redis\\2.6.104\\stackexchange.redis.2.6.104.nupkg.sha512",
+    "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\sweetalert\\1.0.0\\sweetalert.1.0.0.nupkg.sha512",
     "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Multisoftware Nstech\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
