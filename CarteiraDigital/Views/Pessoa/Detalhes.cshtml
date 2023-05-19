@@ -4,64 +4,81 @@
     ViewData["Title"] = "Detalhes";
 }
 
-<h1>Detalhes</h1>
+<h1>Detalhes</h1> 
+<a asp-action="Index" class="btn btn-light mt-2 mb-2">Voltar</a>
 
-<div class="card mt-4">
-
+<div class="card mt-3">
     <div class="card">
         <div class="card-header">Dados Pessoais</div>
         <div class="card-body">
             <div class="form-group">
                 <label asp-for="Id" class="control-label">Id</label>
-                <input asp-for="Id" class="form-control" disabled/>
+                <input asp-for="Id" class="form-control" disabled />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nome" class="control-label">Nome</label>
-                <input asp-for="Nome" class="form-control"disabled/>
+                <input asp-for="Nome" class="form-control" disabled />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label">Email</label>
-                <input asp-for="Email" class="form-control" disabled/>
+                <input asp-for="Email" class="form-control" disabled />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Salario" class="control-label">Salário</label>
-                <input asp-for="Salario" class="form-control" disabled/>
+                <input asp-for="Salario" class="form-control formatarNumero" disabled />
                 <span asp-validation-for="Salario" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Limite" class="control-label">Limite</label>
-                <input asp-for="Limite" class="form-control" disabled/>
+                <input asp-for="Limite" class="form-control formatarNumero" disabled />
                 <span asp-validation-for="Limite" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Minimo" class="control-label">Mínimo</label>
-                <input asp-for="Minimo" class="form-control" disabled/>
+                <input asp-for="Minimo" class="form-control formatarNumero" disabled />
                 <span asp-validation-for="Minimo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Saldo" class="control-label">Saldo</label>
-                <input asp-for="Saldo" class="form-control" disabled/>
+                <input asp-for="Saldo" class="form-control formatarNumero" disabled />
                 <span asp-validation-for="Saldo" class="text-danger"></span>
             </div>
         </div>
     </div>
 </div>
 
-    <div class="card-body">
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="id" role="tabpanel" aria-labelledby="id-tab">@Html.DisplayFor(model => model.Id)</div>
-            <div class="tab-pane fade" id="nome" role="tabpanel" aria-labelledby="nome-tab">@Html.DisplayFor(model => model.Nome)</div>
-            <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">@Html.DisplayFor(model => model.Email)</div>
-            <div class="tab-pane fade" id="salario" role="tabpanel" aria-labelledby="salario-tab">@Html.DisplayFor(model => model.Salario)</div>
-            <div class="tab-pane fade" id="limite" role="tabpanel" aria-labelledby="limite-tab">@Html.DisplayFor(model => model.Limite)</div>
-            <div class="tab-pane fade" id="minimo" role="tabpanel" aria-labelledby="minimo-tab">@Html.DisplayFor(model => model.Minimo)</div>
-            <div class="tab-pane fade" id="saldo" role="tabpanel" aria-labelledby="saldo-tab">@Html.DisplayFor(model => model.Saldo)</div> 
-        </div>
+<div class="card-body">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade" id="id" role="tabpanel" aria-labelledby="id-tab">@Html.DisplayFor(model => model.Id)</div>
+        <div class="tab-pane fade" id="nome" role="tabpanel" aria-labelledby="nome-tab">@Html.DisplayFor(model => model.Nome)</div>
+        <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">@Html.DisplayFor(model => model.Email)</div>
+        <div class="tab-pane fade" id="salario" role="tabpanel" aria-labelledby="salario-tab">@Html.DisplayFor(model => model.Salario)</div>
+        <div class="tab-pane fade" id="limite" role="tabpanel" aria-labelledby="limite-tab">@Html.DisplayFor(model => model.Limite)</div>
+        <div class="tab-pane fade" id="minimo" role="tabpanel" aria-labelledby="minimo-tab">@Html.DisplayFor(model => model.Minimo)</div>
+        <div class="tab-pane fade" id="saldo" role="tabpanel" aria-labelledby="saldo-tab">@Html.DisplayFor(model => model.Saldo)</div>
     </div>
-
-<div>
-    <a asp-action="Index" class="btn btn-light mb-2">Voltar</a>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var camposFormatados = document.getElementsByClassName("formatarNumero");
+        for (var i = 0; i < camposFormatados.length; i++) {
+            var campo = camposFormatados[i];
+            var valor = campo.value;
+            campo.value = valor == 0 ? "0,00" : formatarNumero(valor);
+        }
+    });
+    function formatarNumero(numero) {
+        var partes = numero.toString().split(",");
+        partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        if (partes.length > 1) {
+            partes[1] = partes[1].padEnd(2, "0");
+        } else {
+            partes.push("00");
+        }
+        return partes.join(",");
+    }
+</script>  

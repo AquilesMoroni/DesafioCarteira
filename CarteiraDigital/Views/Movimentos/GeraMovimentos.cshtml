@@ -34,18 +34,32 @@
             <div class="form-group mt-1">
                 <input type="submit" value="Criar Movimento" class="btn btn-dark mt-3" id="btn_criaMovimento" />
                 @Html.Raw(ViewBag.Script)
+                <a asp-controller="Pessoa" asp-action="Index" class="btn btn-light mt-3 ml-3">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Pessoa" asp-action="Index" class="btn btn-light">Voltar</a>
-</div>
+</div> 
 
 <script>
     document.getElementById('movimento-ent').checked = false;
     document.getElementById('movimento-sai').checked = false;
+    document.getElementById('descricao').addEventListener('input', limparAlertaDescricao);
+    document.getElementById('valor').addEventListener('input', limparAlertaValor);
+    document.getElementById('movimento-ent').addEventListener('input', LimparAlertaMovimentos);
+    document.getElementById('movimento-sai').addEventListener('input', LimparAlertaMovimentos);
+
+    function limparAlertaDescricao() {
+        var erroDesc = document.getElementById('erro-desc');
+        erroDesc.textContent = '';
+    }
+    function limparAlertaValor() {
+        var erroValor = document.getElementById('erro-valor');
+        erroValor.textContent = '';
+    }
+    function LimparAlertaMovimentos() {
+        var erroMovimento = document.getElementById('erro-movimento');
+        erroMovimento.textContent = '';
+    }
 
     document.getElementById('btn_criaMovimento').addEventListener('click', function (event) {
         var descricaoInput = document.getElementById('descricao').value;
@@ -66,7 +80,7 @@
         }
         if (!movimentoEntInput.checked && !movimentoSaiInput.checked) {
             event.preventDefault();
-            erroMovimento.textContent = "O Campo Movimento é Obrigatório!"; 
+            erroMovimento.textContent = "O Campo Movimento é Obrigatório!";
         } 
-    })
+    }) 
 </script> 

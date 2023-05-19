@@ -1,0 +1,44 @@
+﻿@model CarteiraDigital.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Extrato";
+}
+
+<h1>Tabela de Extratos</h1> 
+
+<div class="card mt-3">
+    <div class="card-header text-center">ENTRADAS</div>
+    <div class="card-body pb-0">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>
+                        VALOR:
+                    </th>
+                    <th>
+                        DESCRIÇÃO:
+                    </th>
+                    <th>
+                        DATA DA ENTRADA:
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Entradas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataEntrada)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div> 

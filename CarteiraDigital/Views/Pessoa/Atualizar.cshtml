@@ -4,8 +4,8 @@
     ViewData["Title"] = "Atualizar";
 }
 
-<h1>Atualizar</h1>
-<h4>Cliente</h4>
+<h1>Atualizar</h1> 
+<h4>Cliente</h4> 
 <hr />
 <div class="row">
     <div class="col-md">
@@ -18,13 +18,13 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label asp-for="Nome" class="control-label">Nome</label>
-                        <input asp-for="Nome" class="form-control" />
-                        <span asp-validation-for="Nome" class="text-danger"></span>
+                        <input asp-for="Nome" class="form-control" readonly />
+                        <span asp-validation-for="Nome" class="text-danger" ></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Email" class="control-label">Email</label>
-                        <input asp-for="Email" class="form-control"/>
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input asp-for="Email" class="form-control" id="email"/> 
+                        <span asp-validation-for="Email" class="text-danger" id="erro-email"></span> 
                     </div>
                 </div>
             </div>
@@ -33,34 +33,40 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label asp-for="Salario" class="control-label">Salário</label>
-                        <input asp-for="Salario" class="form-control" type="number" />
-                        <span asp-validation-for="Salario" class="text-danger"></span>  
+                        <input asp-for="Salario" class="form-control"/>
+                        <span asp-validation-for="Salario" class="text-danger"></span>
                     </div>
-
                     <div class="form-group">
                         <label asp-for="Limite" class="control-label">Limite</label>
-                        <input asp-for="Limite" class="form-control" />
+                        <input asp-for="Limite" class="form-control"/>
                         <span asp-validation-for="Limite" class="text-danger"></span>
                     </div>
-
                     <div class="form-group">
                         <label asp-for="Minimo" class="control-label">Mínimo</label>
-                        <input asp-for="Minimo" class="form-control"/>
-                        <span asp-validation-for="Minimo" class="text-danger"></span>
-                    </div>
+                        <input asp-for="Minimo" class="form-control" id="minimo"/>
+                        <span asp-validation-for="Minimo" class="text-danger" id="erro-minimo"></span>
+                    </div> 
                 </div>
             </div>
             <div class="form-group mt-3">
-                <input type="submit" value="Atualizar" class="btn btn-dark" />
+                <input type="submit" value="Atualizar" class="btn btn-dark"/>
+                @Html.Raw(ViewBag.Script)
+                <a asp-action="Index" class="btn btn-light ml-3">Voltar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-light mt-2">Voltar</a>
-</div>
+<script>
+    document.getElementById('email').addEventListener('input', limparAlertaEmail);
+    document.getElementById('minimo').addEventListener('input', limparAlertaMinimo); 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    function limparAlertaEmail() {
+        var erroEmail = document.getElementById('erro-email'); 
+        erroEmail.textContent = '';
+    }
+    function limparAlertaMinimo() {
+        var erroMinimo = document.getElementById('erro-minimo');
+        erroMinimo.textContent = '';
+    } 
+</script> 

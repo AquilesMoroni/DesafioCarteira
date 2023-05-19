@@ -41,7 +41,7 @@ namespace CarteiraDigital.Controllers
 
         public async Task<bool> Saque(MovimentoViewModel movimento)
         {
-            MovimentoSaida saida = new MovimentoSaida();
+            MovimentoSaida saida = new MovimentoSaida(); 
             saida.Descricao = movimento.Descricao;
             saida.Valor = movimento.Valor;
             saida.PessoaId = await pessoaRepository.FindByID(movimento.PessoaId);
@@ -52,13 +52,11 @@ namespace CarteiraDigital.Controllers
             }
             else
             {
-                saida.PessoaId.Saldo = saida.PessoaId.Saldo - movimento.Valor;
-            
+                saida.PessoaId.Saldo = saida.PessoaId.Saldo - movimento.Valor; 
                 await movimentosRepository.Add(saida);
                 await pessoaRepository.Update(saida.PessoaId);
-            }
-
-            return true;
+                return true;
+            }   
         }
 
         [HttpPost]
@@ -71,6 +69,12 @@ namespace CarteiraDigital.Controllers
             }
             else 
             {
+                if(await Saque(movimento))
+                {
+                    ViewBag.Script = "<script>Swal.fire({icon: 'warning', title: 'Atenção', text: 'Saque Realizado com Sucesso. Contudo, seu Saldo ficou abaixo do Mínimo!', position: 'bottom-center', timer: 2500, showConfirmButton: false});</script>";
+                    return View(movimento); 
+                }
+
                 if (!await Saque(movimento))
                 {
                     ViewBag.Script = "<script>Swal.fire({icon: 'error', title: 'Atenção', text: 'Você não possui saldo e nem limite suficientes para realizar o saque', position: 'bottom-center', timer: 2500, showConfirmButton: false});</script>";
@@ -80,6 +84,12 @@ namespace CarteiraDigital.Controllers
                     ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Saque Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
                     return View(movimento);  
             }
-        } 
+        }
+        
+        public async Task<ActionResult> ExtratoAsync(int id)
+        {
+            Pessoa pessoa = await pessoaRepository.FindByID(id);
+            return View(pessoa); 
+        }
     }
 } 

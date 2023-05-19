@@ -11,18 +11,18 @@ namespace CarteiraDigital.Controllers
         private readonly PessoaRepository pessoaRepository;
 
         public PessoaController(NHibernate.ISession session) =>
-                            pessoaRepository = new PessoaRepository(session);
+                  pessoaRepository = new PessoaRepository(session);
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View(pessoaRepository.FindAll().ToList());
+            return View(pessoaRepository.FindAll().ToList());  
         }
 
         [HttpGet]
         public ActionResult Cadastrar()
         {
-            return View();
+            return View(); 
         }
 
         [HttpPost]
@@ -31,14 +31,15 @@ namespace CarteiraDigital.Controllers
             if (ModelState.IsValid)
             {
                 await pessoaRepository.Add(pessoa);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(pessoa);
+                ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Cadastro Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
+            } 
+
+            return View(pessoa); 
         }
-        
+
         public async Task<IActionResult> Deletar(int id)
         {
-            await pessoaRepository.Remove(id); 
+            await pessoaRepository.Remove(id);
             return RedirectToAction(nameof(Index)); 
         }
 
@@ -55,9 +56,10 @@ namespace CarteiraDigital.Controllers
             if (ModelState.IsValid)
             {
                 await pessoaRepository.Update(pessoa);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(pessoa);
+                ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Dados Atualizados com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
+            } 
+
+            return View(pessoa); 
         }
 
         public async Task<IActionResult> Detalhes(int id)
