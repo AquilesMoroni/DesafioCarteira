@@ -1,8 +1,9 @@
 ﻿using CarteiraDigital.Models;
+using CarteiraDigital.ViewModel;
 using NHibernate;
+using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarteiraDigital.Repositorios
@@ -52,5 +53,31 @@ namespace CarteiraDigital.Repositorios
                 transaction?.Dispose();
             }
         }
+
+        public List<MovimentoViewModel> FindAll(int pessoaId)
+        {
+            string sql = @" SELECT 'Saída' AS Tipo, Descricao, Valor, DataSaida AS 'Data'
+                            FROM MovimentoSaida
+                            WHERE PessoaId = :idPessoa
+
+                            UNION
+
+                            SELECT 'Entrada' AS Tipo, Descricao, Valor, DataEntrada AS 'Data'
+                            FROM MovimentoEntrada
+                            WHERE PessoaId = :idPessoa
+
+                            ORDER BY Data DESC";
+
+            IQuery query = _session.CreateSQLQuery(sql)
+                            .AddScalar("Tipo", NHibernateUtil.String)
+                            .AddScalar("Descricao", NHibernateUtil.String)
+                            .AddScalar("Valor", NHibernateUtil.Decimal)
+                            .AddScalar("Data", NHibernateUtil.DateTime)
+                            .SetParameter("idPessoa", pessoaId)
+                            .SetResultTransformer(Transformers.AliasToBean<MovimentoViewModel>());
+
+            List<MovimentoViewModel> movimentos = (List<MovimentoViewModel>)query.List<MovimentoViewModel>();
+            return movimentos;
+        }
     }
-}
+} 

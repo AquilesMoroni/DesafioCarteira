@@ -2,6 +2,7 @@
 using CarteiraDigital.Repositorios;
 using CarteiraDigital.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarteiraDigital.Controllers
@@ -62,7 +63,7 @@ namespace CarteiraDigital.Controllers
         [HttpPost]
         public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
         {
-            if (movimento.TipoMovimento == 1 && await Deposito(movimento))
+            if (movimento.Tipo == "1" && await Deposito(movimento))
             {
                     ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Depósito Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
                     return View(movimento); 
@@ -85,11 +86,26 @@ namespace CarteiraDigital.Controllers
                     return View(movimento);  
             }
         }
-        
-        public async Task<ActionResult> ExtratoAsync(int id)
+
+        public ActionResult Extrato(int id, Filtro filtro)
         {
-            Pessoa pessoa = await pessoaRepository.FindByID(id);
-            return View(pessoa); 
+            IList<MovimentoViewModel> movimentos = movimentosRepository.FindAll(id);   
+
+            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>();
+
+
+
+
+            //filtro.dataInicial = Recebe da view a data através de um boostrap.
+            //filtro.dataFinal = 25/12/23 dia atual
+            //filtro.tipoMovimento = entradas
+
+            //ja sabe oq quer , agora percorrer a lista movimentos pegando oq que vc que e colocar na lista movimentosFiltrados e mandar ela pra view
+
+            
+
+            ViewBag.mov = movimentos;
+            return View();
         }
     }
 } 

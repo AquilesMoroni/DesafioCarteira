@@ -1,9 +1,4 @@
-﻿using CarteiraDigital.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace CarteiraDigital.ViewModel
 {
@@ -15,6 +10,8 @@ namespace CarteiraDigital.ViewModel
 
         public decimal Valor { get; set; }
 
-        public int TipoMovimento { get; set; }
+        public string Tipo { get; set; }
+
+        public DateTime Data { get; set; } 
     }
 } 

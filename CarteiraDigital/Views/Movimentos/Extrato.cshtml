@@ -1,44 +1,121 @@
-﻿@model CarteiraDigital.Models.Pessoa
-
-@{
+﻿@{
     ViewData["Title"] = "Extrato";
 }
 
-<h1>Tabela de Extratos</h1> 
+<div class="mb-2">
+    <h1>Tabela de Extratos</h1>
+</div>
+
+<a asp-controller="Pessoa" asp-action="Index" class="btn btn-light">Voltar</a>
+<button id="filtrarBtn" class="btn btn-info ml-3" data-toggle="modal" data-target="#filtroModal">Filtrar</button>
+
+<div class="modal fade" id="filtroModal" tabindex="-1" role="dialog" aria-labelledby="filtroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtroModalLabel">Filtros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mb-2">
+                <form>
+                    <div id="opcoesData" class="form-group">
+                        <h6 class="mt-2">Filtrar Por Data:</h6>
+                        <select id="opcaoPeriodo" class="form-control">
+                            <option class="dropdown-item opcaoPeriodo" data-periodo="07">07 Dias</option>
+                            <option class="dropdown-item opcaoPeriodo" data-periodo="15">15 Dias</option>
+                            <option class="dropdown-item opcaoPeriodo" data-periodo="30">30 Dias</option>
+                            <option class="dropdown-item opcaoPeriodo" data-periodo="Personalizar">Personalizar</option>
+                        </select>
+                    </div>
+                    <div id="inputData" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dataInicio">Data Início:</label>
+                                    <input class="form-control" type="date" name="dataInicio">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dataFim">Data Fim:</label>
+                                    <input class="form-control" type="date" name="dataFim" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="mt-1">Filtrar Por Movimento:</h6>
+                    <select id="opcaoPeriodo" class="form-control">
+                        <option class="dropdown-item opcaoPeriodo" data-periodo="07">Somente Entradas</option>
+                        <option class="dropdown-item opcaoPeriodo" data-periodo="15">Somente Saídas</option>
+                        <option class="dropdown-item opcaoPeriodo" data-periodo="30">Entradas e Saídas</option>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="aplicarFiltroBtn">Aplicar Filtro</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="card mt-3">
-    <div class="card-header text-center">ENTRADAS</div>
+    <div class="card-header text-center">EXTRATO</div>
     <div class="card-body pb-0">
         <table class="table custom-table">
             <thead>
-                <tr>
-                    <th>
-                        VALOR:
+                <tr class="text-center col">
+                    <th class="col-2">
+                        DATA
                     </th>
-                    <th>
-                        DESCRIÇÃO:
+                    <th class="col-4">
+                        DESCRIÇÃO
                     </th>
-                    <th>
-                        DATA DA ENTRADA:
+                    <th class="col-2">
+                        TIPO
+                    </th>
+                    <th class="col-2">
+                        VALOR
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Entradas)
+                @foreach (var item in ViewBag.mov)
                 {
-                    <tr>
+                    <tr class="text-center">
                         <td>
-                            @Html.DisplayFor(modelItem => item.Valor)
+                            @item.Data
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Descricao)
+                            @item.Descricao
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DataEntrada)
+                            @item.Tipo
+                        </td>
+                        <td>
+                            R$ @Math.Round(item.Valor, 2)
                         </td>
                     </tr>
+
                 }
             </tbody>
         </table>
     </div>
-</div> 
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#opcaoPeriodo").change(function () {
+                var selectedOption = $(this).find("option:selected").data("periodo");
+                if (selectedOption === "Personalizar") {
+                    $("#inputData").show();
+                } else {
+                    $("#inputData").hide();
+                }
+            });
+        });
+    </script>
+} 
