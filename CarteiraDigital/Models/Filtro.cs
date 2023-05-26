@@ -4,10 +4,9 @@ namespace CarteiraDigital.Models
 {
     public class Filtro
     {
-        public DateTime dataInicial { get; set; }
-
-        public DateTime dataFinal { get; set; }
-
+        public int tipoPeriodo { get; set; }
+        public DateTime? dataInicio { get; set; }
+        public DateTime? dataFim { get; set; }
         public int tipoMovimento { get; set; }
-    }
-} 
+    } 
+}

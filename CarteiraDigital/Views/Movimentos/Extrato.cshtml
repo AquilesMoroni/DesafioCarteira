@@ -6,7 +6,7 @@
     <h1>Tabela de Extratos</h1>
 </div>
 
-<a asp-controller="Pessoa" asp-action="Index" class="btn btn-light">Voltar</a>
+<a asp-controller="Pessoa" asp-action="Index" class="btn btn-light mt-2 mb-2">Voltar</a>
 <button id="filtrarBtn" class="btn btn-info ml-3" data-toggle="modal" data-target="#filtroModal">Filtrar</button>
 
 <div class="modal fade" id="filtroModal" tabindex="-1" role="dialog" aria-labelledby="filtroModalLabel" aria-hidden="true">
@@ -19,17 +19,18 @@
                 </button>
             </div>
             <div class="modal-body mb-2">
-                <form>
-                    <div id="opcoesData" class="form-group">
+                <form asp-controller="Movimentos" asp-action="FiltroExtrato" method="post">
+                    <div class="form-group">
+                        <input name="id" value="@ViewBag.id" type="hidden" />
                         <h6 class="mt-2">Filtrar Por Data:</h6>
-                        <select id="opcaoPeriodo" class="form-control">
-                            <option class="dropdown-item opcaoPeriodo" data-periodo="07">07 Dias</option>
-                            <option class="dropdown-item opcaoPeriodo" data-periodo="15">15 Dias</option>
-                            <option class="dropdown-item opcaoPeriodo" data-periodo="30">30 Dias</option>
-                            <option class="dropdown-item opcaoPeriodo" data-periodo="Personalizar">Personalizar</option>
+                        <select id="opcaoPeriodo" class="form-control" name="tipoPeriodo">
+                            <option value="0">7 Dias</option>
+                            <option value="1">15 Dias</option>
+                            <option value="2">30 Dias</option>
+                            <option value="3">Personalizar</option>
                         </select>
                     </div>
-                    <div id="inputData" style="display: none;">
+                    <div id="inputData">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -45,17 +46,19 @@
                             </div>
                         </div>
                     </div>
-                    <h6 class="mt-1">Filtrar Por Movimento:</h6>
-                    <select id="opcaoPeriodo" class="form-control">
-                        <option class="dropdown-item opcaoPeriodo" data-periodo="07">Somente Entradas</option>
-                        <option class="dropdown-item opcaoPeriodo" data-periodo="15">Somente Saídas</option>
-                        <option class="dropdown-item opcaoPeriodo" data-periodo="30">Entradas e Saídas</option>
-                    </select>
+                    <div class="form-group">
+                        <h6 class="mt-1">Filtrar Por Movimento:</h6>
+                        <select id="opcaoTipoMovimento" class="form-control" name="tipoMovimento">
+                            <option value="0">Somente Entradas</option>
+                            <option value="1">Somente Saídas</option>
+                            <option value="2">Entradas e Saídas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="aplicarFiltroBtn">Aplicar Filtro</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="aplicarFiltroBtn">Aplicar Filtro</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
@@ -98,24 +101,32 @@
                             R$ @Math.Round(item.Valor, 2)
                         </td>
                     </tr>
-
                 }
             </tbody>
         </table>
     </div>
 </div>
 
-@section scripts {
+@section Scripts {
     <script>
         $(document).ready(function () {
+            // Esconder o campo de entrada de data inicialmente
+            $("#inputData").hide();
+
             $("#opcaoPeriodo").change(function () {
-                var selectedOption = $(this).find("option:selected").data("periodo");
-                if (selectedOption === "Personalizar") {
+                var selectedOption = $(this).val();
+                if (selectedOption === "3") {
                     $("#inputData").show();
                 } else {
                     $("#inputData").hide();
                 }
             });
+
+            // Verificar se a lista movimentosFiltrados está vazia
+            var movimentosFiltrados = @Html.Raw(Json.Serialize(ViewBag.mov));
+            if (movimentosFiltrados.length === 0) {
+                $(".card-body").prepend('<div class="alert alert-info text-center">Não há registros de movimentos com os filtros selecionados.</div>');
+            }
         });
     </script>
 } 

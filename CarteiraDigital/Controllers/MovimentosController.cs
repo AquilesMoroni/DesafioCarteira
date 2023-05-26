@@ -2,6 +2,7 @@
 using CarteiraDigital.Repositorios;
 using CarteiraDigital.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -87,25 +88,61 @@ namespace CarteiraDigital.Controllers
             }
         }
 
-        public ActionResult Extrato(int id, Filtro filtro)
+        public ActionResult Extrato(int id)
         {
             IList<MovimentoViewModel> movimentos = movimentosRepository.FindAll(id);   
-
-            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>();
-
-
-
-
-            //filtro.dataInicial = Recebe da view a data através de um boostrap.
-            //filtro.dataFinal = 25/12/23 dia atual
-            //filtro.tipoMovimento = entradas
-
-            //ja sabe oq quer , agora percorrer a lista movimentos pegando oq que vc que e colocar na lista movimentosFiltrados e mandar ela pra view
-
-            
-
             ViewBag.mov = movimentos;
+            ViewBag.id = id;
             return View();
         }
+
+        public ActionResult FiltroExtrato(Filtro filtro, int id)
+        {
+            IList<MovimentoViewModel> movimentos = movimentosRepository.FindAll(id);
+            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>();
+            ViewBag.id = id;
+
+            DateTime ultimos7dias = DateTime.Now.AddDays(-7);
+            DateTime ultimos15dias = DateTime.Now.AddDays(-15);
+            DateTime ultimos30dias = DateTime.Now.AddDays(-30);
+            DateTime? dataInicio = null;
+            DateTime? dataFim = null;
+
+            switch (filtro.tipoPeriodo)
+            {
+                case 0:
+                    dataInicio = ultimos7dias.Date;
+                    dataFim = DateTime.Now.Date;
+                    break;
+                case 1:
+                    dataInicio = ultimos15dias.Date;
+                    dataFim = DateTime.Now.Date;
+                    break;
+                case 2:
+                    dataInicio = ultimos30dias.Date;
+                    dataFim = DateTime.Now.Date;
+                    break;
+                case 3:
+                    dataInicio = filtro.dataInicio;
+                    dataFim = filtro.dataFim;
+                    break;
+            }
+
+            foreach (var item in movimentos)
+            {
+                if ((filtro.tipoMovimento == 0 && item.Tipo == "Entrada") ||
+                    (filtro.tipoMovimento == 1 && item.Tipo == "Saida") ||
+                    (filtro.tipoMovimento == 2))
+                {
+                    if (item.Data.Date >= dataInicio && item.Data.Date <= dataFim)
+                    {
+                        movimentosFiltrados.Add(item);
+                    }
+                }
+            }
+
+            ViewBag.mov = movimentosFiltrados;
+            return View("Extrato"); 
+        } 
     }
 } 
