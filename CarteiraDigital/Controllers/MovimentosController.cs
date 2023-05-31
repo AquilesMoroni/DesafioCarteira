@@ -59,7 +59,7 @@ namespace CarteiraDigital.Controllers
                 await pessoaRepository.Update(saida.PessoaId);
                 return true;
             }   
-        }
+        } 
 
         [HttpPost]
         public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
@@ -88,11 +88,13 @@ namespace CarteiraDigital.Controllers
             }
         }
 
-        public ActionResult Extrato(int id)
+        public async Task<ActionResult> ExtratoAsync(int id)
         {
             IList<MovimentoViewModel> movimentos = movimentosRepository.FindAll(id);   
             ViewBag.mov = movimentos;
             ViewBag.id = id;
+            Pessoa p = await pessoaRepository.FindByID(id);
+            ViewBag.Nome = p.Nome;
             return View();
         }
 

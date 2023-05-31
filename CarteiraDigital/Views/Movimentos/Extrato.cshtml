@@ -1,9 +1,11 @@
-﻿@{
+﻿@using CarteiraDigital.ViewModel;
+
+@{
     ViewData["Title"] = "Extrato";
 }
 
 <div class="mb-2">
-    <h1>Tabela de Extratos</h1>
+    <h1>Tabela de Extrato de @ViewBag.nome</h1>
 </div>
 
 <a asp-controller="Pessoa" asp-action="Index" class="btn btn-light mt-2 mb-2">Voltar</a>
@@ -35,13 +37,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dataInicio">Data Início:</label>
-                                    <input class="form-control" type="date" name="dataInicio">
+                                    <input class="form-control" type="date" id="data-inicio" name="dataInicio">
+                                    <span class="text-danger" id="erro-inicio"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dataFim">Data Fim:</label>
-                                    <input class="form-control" type="date" name="dataFim" />
+                                    <input class="form-control" type="date" id="data-fim" name="dataFim" />
+                                    <span class="text-danger" id="erro-fim"></span>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" id="aplicarFiltroBtn">Aplicar Filtro</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Fechar</button>
                     </div>
                 </form>
             </div>
@@ -64,53 +68,98 @@
     </div>
 </div>
 
-<div class="card mt-3">
-    <div class="card-header text-center">EXTRATO</div>
-    <div class="card-body pb-0">
-        <table class="table custom-table">
-            <thead>
-                <tr class="text-center col">
-                    <th class="col-2">
-                        DATA
-                    </th>
-                    <th class="col-4">
-                        DESCRIÇÃO
-                    </th>
-                    <th class="col-2">
-                        TIPO
-                    </th>
-                    <th class="col-2">
-                        VALOR
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.mov)
-                {
-                    <tr class="text-center">
-                        <td>
-                            @item.Data
-                        </td>
-                        <td>
-                            @item.Descricao
-                        </td>
-                        <td>
-                            @item.Tipo
-                        </td>
-                        <td>
-                            R$ @Math.Round(item.Valor, 2)
-                        </td>
+@if (ViewBag.mov != null && !(ViewBag.mov as IEnumerable<MovimentoViewModel>).Any())
+{
+    <div class="alert alert-info text-center mt-3 text-white bg-danger">Não Há Registros Aqui.</div>
+}
+
+else
+{
+    <div class="card mt-3">
+        <div class="card-header text-center">EXTRATO</div>
+        <div class="card-body pb-0">
+            <table class="table custom-table">
+                <thead>
+                    <tr class="text-center col">
+                        <th class="col-2">
+                            DATA
+                        </th>
+                        <th class="col-4">
+                            DESCRIÇÃO
+                        </th>
+                        <th class="col-2">
+                            TIPO
+                        </th>
+                        <th class="col-2">
+                            VALOR
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.mov)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                @item.Data
+                            </td>
+                            <td>
+                                @item.Descricao
+                            </td>
+                            <td>
+                                @item.Tipo
+                            </td>
+                            <td>
+                                <input type="text" class="form-control formatarNumero text-center input-valor text-white bg-secondary" value="@Math.Round(item.Valor, 2)" readonly />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+}
 
 @section Scripts {
     <script>
+        document.getElementById('data-inicio').addEventListener('input', limparAlertaInicio);
+        document.getElementById('data-fim').addEventListener('input', limparAlertaFim);
+
+        function limparAlertaInicio() {
+            var erroInicio = document.getElementById('erro-inicio');
+            erroInicio.textContent = '';
+        }
+        function limparAlertaFim() {
+            var erroFim = document.getElementById('erro-fim');
+            erroFim.textContent = '';
+        }
+
+        document.getElementById('aplicarFiltroBtn').addEventListener('click', function (event) {
+            var opcaoPeriodo = document.getElementById('opcaoPeriodo').value;
+            var inicioInput = document.getElementById('data-inicio').value;
+            var fimInput = document.getElementById('data-fim').value;
+            var erroInicio = document.getElementById('erro-inicio');
+            var erroFim = document.getElementById('erro-fim');
+
+            if (opcaoPeriodo === "3") {
+                if (inicioInput.trim() === '') {
+                    event.preventDefault();
+                    erroInicio.textContent = "Selecione uma data de início.";
+                }
+                if (fimInput.trim() === '') {
+                    event.preventDefault();
+                    erroFim.textContent = "Selecione uma data final.";
+                }
+                // Verificar se a data de início é anterior à data de fim
+                var dataInicio = new Date(inicioInput);
+                var dataFim = new Date(fimInput);
+                if (dataInicio > dataFim) {
+                    event.preventDefault();
+                    erroInicio.textContent = "A Data de Inicío não pode ser posterior a Data Final."; 
+                } 
+            }
+        });
+
         $(document).ready(function () {
-            // Esconder o campo de entrada de data inicialmente
             $("#inputData").hide();
 
             $("#opcaoPeriodo").change(function () {
@@ -122,10 +171,16 @@
                 }
             });
 
-            // Verificar se a lista movimentosFiltrados está vazia
-            var movimentosFiltrados = @Html.Raw(Json.Serialize(ViewBag.mov));
-            if (movimentosFiltrados.length === 0) {
-                $(".card-body").prepend('<div class="alert alert-info text-center">Não há registros de movimentos com os filtros selecionados.</div>');
+            $(".formatarNumero").each(function () {
+                var valor = $(this).val();
+                $(this).val(valor == 0 ? "0,00" : formatarNumero(valor));
+            });
+
+            function formatarNumero(numero) {
+                var partes = numero.toString().split(",");
+                partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00";
+                return partes.join(",");
             }
         });
     </script>

@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<CarteiraDigital.Models.Pessoa>
-
 @using Newtonsoft.Json;
 
 @{
@@ -22,7 +21,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
-                </th>
+                </th> 
                 <th></th>
             </tr>
         </thead>
@@ -33,12 +32,15 @@
                 <tr>
                     <td class="pt-3">
                         @Html.DisplayFor(modelItem => item.Nome)
+                        @if(item.Saldo < item.Minimo)
+                         {
+                            <p class="text-danger mb-0">Saldo Abaixo do Mínimo!</p>
+                         }
                     </td>
                     <td class="pt-3">
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td class="pl-4 pr=0 d-flex justify-content-between">
-
                         <button class="btn btn-danger" data-toggle="modal" data-target="#Delete-@item.Id">Excluir</button>
                         <div class="modal fade" id="Delete-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">

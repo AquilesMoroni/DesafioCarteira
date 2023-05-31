@@ -81,6 +81,10 @@
         if (!movimentoEntInput.checked && !movimentoSaiInput.checked) {
             event.preventDefault();
             erroMovimento.textContent = "O Campo Movimento é Obrigatório!";
+        }
+        if (valorInput <= 0) {
+            event.preventDefault();
+            erroValor.textContent = "O Valor não pode ser menor ou igual a zero!"; 
         } 
     }) 
 </script> 

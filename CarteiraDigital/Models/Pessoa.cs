@@ -10,7 +10,7 @@ namespace CarteiraDigital.Models
 
         [Required(ErrorMessage = "O campo Nome é obrigatório!")]
         [StringLength(40)]
-        [RegularExpression("^[A-Za-z]+$", ErrorMessage = "Nome Inválido")]
+        [RegularExpression(@"^(?:[A-Za-z]{2,} ?)+$", ErrorMessage = "Nome Inválido")] 
         public virtual string Nome { get; set; }
 
         [Required(ErrorMessage = "O campo E-mail é obrigatório!")]
