@@ -4,12 +4,16 @@
     ViewData["Title"] = "Extrato";
 }
 
-<div class="mb-2">
+<div class="mb-3">
     <h1>Tabela de Extrato de @ViewBag.nome</h1>
 </div>
 
 <a asp-controller="Pessoa" asp-action="Index" class="btn btn-light mt-2 mb-2">Voltar</a>
 <button id="filtrarBtn" class="btn btn-info ml-3" data-toggle="modal" data-target="#filtroModal">Filtrar</button>
+
+<div>
+    <p class="text-danger mt-3 mb-1">Saldo Anterior: R$ <span class="saldo">@Math.Round(ViewBag.SaldoAnterior, 2)</span></p>
+</div>
 
 <div class="modal fade" id="filtroModal" tabindex="-1" role="dialog" aria-labelledby="filtroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -75,7 +79,7 @@
 
 else
 {
-    <div class="card mt-3">
+    <div class="card mt-1">
         <div class="card-header text-center">EXTRATO</div>
         <div class="card-body pb-0">
             <table class="table custom-table">
@@ -109,7 +113,7 @@ else
                                 @item.Tipo
                             </td>
                             <td>
-                                <input type="text" class="form-control formatarNumero text-center input-valor text-white bg-secondary" value="@Math.Round(item.Valor, 2)" readonly />
+                                <div class="formatarNumero">@Math.Round(item.Valor, 2)</div> 
                             </td>
                         </tr>
                     }
@@ -118,6 +122,10 @@ else
         </div>
     </div>
 }
+
+<div>
+    <p class="mt-1 mb-1 text-danger">Saldo Atual: R$ <span class="saldo">@Math.Round(ViewBag.Saldo, 2)</span></p>
+</div>
 
 @section Scripts {
     <script>
@@ -149,14 +157,18 @@ else
                     event.preventDefault();
                     erroFim.textContent = "Selecione uma data final.";
                 }
-                // Verificar se a data de início é anterior à data de fim
                 var dataInicio = new Date(inicioInput);
                 var dataFim = new Date(fimInput);
                 if (dataInicio > dataFim) {
                     event.preventDefault();
-                    erroInicio.textContent = "A Data de Inicío não pode ser posterior a Data Final."; 
-                } 
+                    erroInicio.textContent = "A Data de Inicío não pode ser posterior a Data Final.";
+                }
             }
+        });
+
+        $(".saldo").each(function () {
+            const saldo = $(this).text();
+            $(this).text(formatarNumero(saldo));
         });
 
         $(document).ready(function () {
@@ -172,16 +184,16 @@ else
             });
 
             $(".formatarNumero").each(function () {
-                var valor = $(this).val();
-                $(this).val(valor == 0 ? "0,00" : formatarNumero(valor));
+                var valor = $(this).text();
+                $(this).text(valor == 0 ? "0,00" : formatarNumero(valor));
             });
-
-            function formatarNumero(numero) {
-                var partes = numero.toString().split(",");
-                partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00";
-                return partes.join(",");
-            }
         });
+
+        function formatarNumero(numero) {
+            var partes = numero.toString().split(",");
+            partes[0] = parseInt(partes[0]).toLocaleString();
+            partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00";
+            return partes.join(",");
+        } 
     </script>
 } 
