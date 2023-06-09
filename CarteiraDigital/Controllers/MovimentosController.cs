@@ -11,7 +11,7 @@ namespace CarteiraDigital.Controllers
     public class MovimentosController : Controller
     {
         private readonly MovimentosRepository movimentosRepository;
-        private readonly PessoaRepository pessoaRepository;
+        private readonly PessoaRepository pessoaRepository; 
 
         public MovimentosController(NHibernate.ISession session)
         {
@@ -67,7 +67,7 @@ namespace CarteiraDigital.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
+        public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento) 
         {
             if (movimento.Tipo == "1" && await Deposito(movimento))
             {
@@ -140,25 +140,27 @@ namespace CarteiraDigital.Controllers
             foreach (var item in movimentos)
             {
                 if ((filtro.tipoMovimento == 0 && item.Tipo == "Entrada") ||
-                    (filtro.tipoMovimento == 1 && item.Tipo == "Saida") ||
+                    (filtro.tipoMovimento == 1 && item.Tipo == "Entrada") ||
                     (filtro.tipoMovimento == 2))
                 {
                     if (item.Data.Date >= dataInicio && item.Data.Date <= dataFim)
                     {
                         movimentosFiltrados.Add(item);
-                    }
+                    } 
                 }
             }
 
             decimal valorTotalFiltrado = 0;
             decimal valorTotalanteriorFiltrado = 0;
 
-            foreach(var mov in movimentosFiltrados)
+            foreach (var mov in movimentosFiltrados)
             {
-                valorTotalFiltrado = valorTotalFiltrado + mov.Valor;
-            }
+                decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
 
-            foreach(var mov in movimentos)
+                valorTotalFiltrado = valorTotalFiltrado + valorMovimento; 
+            } 
+
+            foreach (var mov in movimentos)
             {
                 if(mov.Data < filtro.dataInicio)
                 {
@@ -167,10 +169,10 @@ namespace CarteiraDigital.Controllers
             } 
 
             ViewBag.SaldoAnterior = valorTotalanteriorFiltrado;
-            ViewBag.Saldo = valorTotalFiltrado;
+            ViewBag.Saldo = valorTotalFiltrado + valorTotalanteriorFiltrado;
             ViewBag.mov = movimentosFiltrados;
 
-            return View("Extrato"); 
+            return View("Extrato");  
         }
     }
-}
+} 

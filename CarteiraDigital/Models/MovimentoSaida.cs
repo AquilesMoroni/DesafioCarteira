@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarteiraDigital.Models
 {
@@ -11,7 +9,7 @@ namespace CarteiraDigital.Models
 
         public virtual DateTime DataSaida { get; set; }
 
-        public virtual string Descricao { get; set; }
+        public virtual string Descricao { get; set; } 
 
         public virtual decimal Valor { get; set; }
 
@@ -22,4 +20,4 @@ namespace CarteiraDigital.Models
             this.DataSaida = DateTime.Now;
         } 
     }
-}
+} 
