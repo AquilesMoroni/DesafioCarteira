@@ -192,8 +192,8 @@ else
         function formatarNumero(numero) {
             var partes = numero.toString().split(",");
             partes[0] = parseInt(partes[0]).toLocaleString();
-            partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00";
+            partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00"; 
             return partes.join(",");
         } 
-    </script>
+    </script> 
 } 

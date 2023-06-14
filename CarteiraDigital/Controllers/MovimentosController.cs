@@ -11,7 +11,7 @@ namespace CarteiraDigital.Controllers
     public class MovimentosController : Controller
     {
         private readonly MovimentosRepository movimentosRepository;
-        private readonly PessoaRepository pessoaRepository; 
+        private readonly PessoaRepository pessoaRepository;
 
         public MovimentosController(NHibernate.ISession session)
         {
@@ -67,7 +67,7 @@ namespace CarteiraDigital.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento) 
+        public async Task<IActionResult> GeraMovimentos(MovimentoViewModel movimento)
         {
             if (movimento.Tipo == "1" && await Deposito(movimento))
             {
@@ -101,14 +101,14 @@ namespace CarteiraDigital.Controllers
             Pessoa p = await pessoaRepository.FindByID(id);
             ViewBag.Nome = p.Nome;
             ViewBag.Saldo = p.Saldo;
-            ViewBag.SaldoAnterior = 0.0; 
+            ViewBag.SaldoAnterior = 0.0;
             return View();
         }
 
         public ActionResult FiltroExtrato(Filtro filtro, int id)
         {
             List<MovimentoViewModel> movimentos = movimentosRepository.FindAll(id);
-            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>();
+            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>(); 
             ViewBag.id = id;
 
             DateTime ultimos7dias = DateTime.Now.AddDays(-7);
@@ -137,42 +137,44 @@ namespace CarteiraDigital.Controllers
                     break;
             }
 
+            decimal valorTotalFiltrado = 0;
+            decimal valorTotalanteriorFiltrado = 0;
+
             foreach (var item in movimentos)
             {
                 if ((filtro.tipoMovimento == 0 && item.Tipo == "Entrada") ||
-                    (filtro.tipoMovimento == 1 && item.Tipo == "Entrada") ||
+                    (filtro.tipoMovimento == 1 && item.Tipo == "Saída") ||
                     (filtro.tipoMovimento == 2))
                 {
                     if (item.Data.Date >= dataInicio && item.Data.Date <= dataFim)
                     {
                         movimentosFiltrados.Add(item);
-                    } 
-                }
+                    }
+                } 
             }
-
-            decimal valorTotalFiltrado = 0;
-            decimal valorTotalanteriorFiltrado = 0;
 
             foreach (var mov in movimentosFiltrados)
             {
                 decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
 
-                valorTotalFiltrado = valorTotalFiltrado + valorMovimento; 
-            } 
-
+                valorTotalFiltrado += valorMovimento;
+            }
+            
             foreach (var mov in movimentos)
             {
-                if(mov.Data < filtro.dataInicio)
+                if (mov.Data < dataInicio)
                 {
-                    valorTotalanteriorFiltrado = valorTotalanteriorFiltrado + mov.Valor;
+                    decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
+
+                    valorTotalanteriorFiltrado += valorMovimento;
                 }
-            } 
+            }
 
             ViewBag.SaldoAnterior = valorTotalanteriorFiltrado;
             ViewBag.Saldo = valorTotalFiltrado + valorTotalanteriorFiltrado;
             ViewBag.mov = movimentosFiltrados;
 
-            return View("Extrato");  
+            return View("Extrato"); 
         }
     }
 } 
