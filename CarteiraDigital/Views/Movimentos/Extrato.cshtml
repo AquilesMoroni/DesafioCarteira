@@ -11,11 +11,20 @@
 <a asp-controller="Pessoa" asp-action="Index" class="btn btn-light mt-2 mb-2">Voltar</a>
 <button id="filtrarBtn" class="btn btn-info ml-3" data-toggle="modal" data-target="#filtroModal">Filtrar</button>
 
-<div>
-    <p class="text-danger mt-3 mb-1">Saldo Anterior: R$ <span class="saldo">@Math.Round(ViewBag.SaldoAnterior, 2)</span></p>
-</div>
+@if (ViewBag.MostrarViewBag == false)
+{
+    <div style="display: none;">
+        <p class="text-danger mt-3 mb-1">Saldo Anterior: R$ <span class="saldo">@Math.Round(ViewBag.SaldoAnterior, 2)</span></p>
+    </div>
+}
+else
+{
+    <div>
+        <p class="text-danger mt-3 mb-1">Saldo Anterior: R$ <span class="saldo">@Math.Round(ViewBag.SaldoAnterior, 2)</span></p>
+    </div>
+} 
 
-<div class="modal fade" id="filtroModal" tabindex="-1" role="dialog" aria-labelledby="filtroModalLabel" aria-hidden="true"> 
+<div class="modal fade" id="filtroModal" tabindex="-1" role="dialog" aria-labelledby="filtroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -113,7 +122,7 @@ else
                                 @item.Tipo
                             </td>
                             <td>
-                                <div class="formatarNumero">@Math.Round(item.Valor, 2)</div> 
+                                <div class="formatarNumero">@Math.Round(item.Valor, 2)</div>
                             </td>
                         </tr>
                     }
@@ -192,8 +201,8 @@ else
         function formatarNumero(numero) {
             var partes = numero.toString().split(",");
             partes[0] = parseInt(partes[0]).toLocaleString();
-            partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00"; 
+            partes[1] = partes[1] ? partes[1].padEnd(2, "0") : "00";
             return partes.join(",");
-        } 
-    </script> 
+        }
+    </script>
 } 

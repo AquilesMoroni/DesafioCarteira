@@ -108,7 +108,7 @@ namespace CarteiraDigital.Controllers
         public ActionResult FiltroExtrato(Filtro filtro, int id)
         {
             List<MovimentoViewModel> movimentos = movimentosRepository.FindAll(id);
-            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>(); 
+            IList<MovimentoViewModel> movimentosFiltrados = new List<MovimentoViewModel>();
             ViewBag.id = id;
 
             DateTime ultimos7dias = DateTime.Now.AddDays(-7);
@@ -137,8 +137,8 @@ namespace CarteiraDigital.Controllers
                     break;
             }
 
-            decimal valorTotalFiltrado = 0;
-            decimal valorTotalanteriorFiltrado = 0;
+            decimal valorTotalEntradas = 0;
+            decimal valorTotalSaidas = 0;
 
             foreach (var item in movimentos)
             {
@@ -149,32 +149,59 @@ namespace CarteiraDigital.Controllers
                     if (item.Data.Date >= dataInicio && item.Data.Date <= dataFim)
                     {
                         movimentosFiltrados.Add(item);
+                        if (item.Tipo == "Entrada")
+                        {
+                            valorTotalEntradas += item.Valor;
+                        }
+                        else if (item.Tipo == "Saída")
+                        {
+                            valorTotalSaidas += item.Valor;
+                        }
                     }
-                } 
-            }
-
-            foreach (var mov in movimentosFiltrados)
-            {
-                decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
-
-                valorTotalFiltrado += valorMovimento;
-            }
-            
-            foreach (var mov in movimentos)
-            {
-                if (mov.Data < dataInicio)
-                {
-                    decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
-
-                    valorTotalanteriorFiltrado += valorMovimento;
                 }
             }
 
-            ViewBag.SaldoAnterior = valorTotalanteriorFiltrado;
-            ViewBag.Saldo = valorTotalFiltrado + valorTotalanteriorFiltrado;
+            decimal saldoAtual = 0;
+
+            if (filtro.tipoMovimento == 0)
+            {
+                saldoAtual = valorTotalEntradas;
+            }
+            else if (filtro.tipoMovimento == 1)
+            {
+                saldoAtual = -valorTotalSaidas;
+            }
+            else
+            {
+                decimal valorTotalanteriorFiltrado = 0;
+
+                foreach (var mov in movimentos)
+                {
+                    if (mov.Data < dataInicio)
+                    {
+                        decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
+                        valorTotalanteriorFiltrado += valorMovimento;
+                    }
+                }
+
+                saldoAtual = valorTotalEntradas - valorTotalSaidas + valorTotalanteriorFiltrado;
+                ViewBag.SaldoAnterior = valorTotalanteriorFiltrado;
+            }
+
+            ViewBag.Saldo = saldoAtual;
             ViewBag.mov = movimentosFiltrados;
 
-            return View("Extrato"); 
+            if (filtro.tipoMovimento == 0 || filtro.tipoMovimento == 1)
+            {
+                ViewBag.SaldoAnterior = 0.0;
+                ViewBag.MostrarViewBag = false;
+            }
+            else
+            {
+                ViewBag.MostrarViewBag = true;
+            }
+
+            return View("Extrato");
         }
     }
-} 
+}  
