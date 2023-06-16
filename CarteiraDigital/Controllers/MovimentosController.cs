@@ -76,10 +76,18 @@ namespace CarteiraDigital.Controllers
             }
             else
             {
+                MovimentoSaida saida = new MovimentoSaida();
+                saida.Descricao = movimento.Descricao;
+                saida.Valor = movimento.Valor;
+                saida.PessoaId = await pessoaRepository.FindByID(movimento.PessoaId);
+
                 if (await Saque(movimento))
                 {
-                    ViewBag.Script = "<script>Swal.fire({icon: 'warning', title: 'Atenção', text: 'Saque Realizado com Sucesso. Contudo, seu Saldo ficou abaixo do Mínimo!', position: 'bottom-center', timer: 2500, showConfirmButton: false});</script>";
-                    return View(movimento);
+                    if (saida.PessoaId.Minimo < saida.PessoaId.Saldo)
+                    {
+                        ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Saque Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>"; 
+                        return View(movimento);
+                    }
                 }
 
                 if (!await Saque(movimento))
@@ -88,7 +96,7 @@ namespace CarteiraDigital.Controllers
                     return View(movimento);
                 }
 
-                ViewBag.Script = "<script>Swal.fire({icon: 'success', title: 'Sucesso', text: 'Saque Realizado com Sucesso!', position: 'bottom-center', timer: 2000, showConfirmButton: false});</script>";
+                ViewBag.Script = "<script>Swal.fire({icon: 'warning', title: 'Atenção', text: 'Saque Realizado com Sucesso. Contudo, seu Saldo ficou abaixo do Mínimo!', position: 'bottom-center', timer: 2500, showConfirmButton: false});</script>";
                 return View(movimento);
             }
         }
@@ -149,13 +157,14 @@ namespace CarteiraDigital.Controllers
                     if (item.Data.Date >= dataInicio && item.Data.Date <= dataFim)
                     {
                         movimentosFiltrados.Add(item);
+
                         if (item.Tipo == "Entrada")
                         {
-                            valorTotalEntradas += item.Valor;
+                            valorTotalEntradas = valorTotalEntradas + item.Valor;
                         }
                         else if (item.Tipo == "Saída")
                         {
-                            valorTotalSaidas += item.Valor;
+                            valorTotalSaidas = valorTotalSaidas + item.Valor;
                         }
                     }
                 }
@@ -180,7 +189,7 @@ namespace CarteiraDigital.Controllers
                     if (mov.Data < dataInicio)
                     {
                         decimal valorMovimento = mov.Tipo == "Entrada" ? mov.Valor : -mov.Valor;
-                        valorTotalanteriorFiltrado += valorMovimento;
+                        valorTotalanteriorFiltrado = valorTotalanteriorFiltrado + valorMovimento;
                     }
                 }
 
@@ -204,4 +213,4 @@ namespace CarteiraDigital.Controllers
             return View("Extrato");
         }
     }
-}  
+} 
