@@ -31,11 +31,19 @@ namespace CarteiraDigital.Repositorios
             }
         }
 
-        public IEnumerable<Pessoa> FindAll() =>
+        public IEnumerable<Pessoa> FindByID() =>
                         _session.Query<Pessoa>().ToList();
 
         public async Task<Pessoa> FindByID(int id) =>
                         await _session.GetAsync<Pessoa>(id);
+
+        public Pessoa FindByEmail(string email)
+        {
+            IQuery query = _session.CreateQuery("FROM Pessoa WHERE Email = :email");
+            query.SetParameter("email", email);
+            var resultado = query.UniqueResult<Pessoa>();
+            return resultado;
+        }
 
         public async Task Remove(int id)
         {

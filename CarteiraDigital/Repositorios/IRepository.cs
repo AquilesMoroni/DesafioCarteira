@@ -9,6 +9,6 @@ namespace CarteiraDigital.Repositorios
         Task Remove(int id);
         Task Update(T item);
         Task<T> FindByID(int id);
-        IEnumerable<T> FindAll(); 
+        IEnumerable<T> FindByID(); 
     }
 } 

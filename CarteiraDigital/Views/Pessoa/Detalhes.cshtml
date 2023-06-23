@@ -27,13 +27,23 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Cargo" class="control-label">Cargo</label>
+                <input asp-for="Cargo" class="form-control" disabled />
+                <span asp-validation-for="Cargo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label">Senha</label>
+                <input asp-for="Senha" class="form-control" disabled />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Salario" class="control-label">Salário</label>
                 <input asp-for="Salario" class="form-control formatarNumero" disabled />
                 <span asp-validation-for="Salario" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Limite" class="control-label">Limite</label>
-                <input asp-for="Limite" class="form-control formatarNumero" disabled /> 
+                <input asp-for="Limite" class="form-control formatarNumero" disabled />
                 <span asp-validation-for="Limite" class="text-danger"></span>
             </div>
             <div class="form-group">

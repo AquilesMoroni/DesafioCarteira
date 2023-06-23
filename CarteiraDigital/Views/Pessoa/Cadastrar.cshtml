@@ -27,9 +27,25 @@
                 <span asp-validation-for="Minimo" class="text-danger" id="erro-minimo"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Cadastrar" class="btn btn-dark" />
+                <label asp-for="Senha" class="control-label">Senha</label>
+                <input asp-for="Senha" type="password" class="form-control" data-span-id="span-senha" id="senha" placeholder="Ex: #$jY5489_" oninput="limitarTamanho(this, 30)" />
+                <span asp-validation-for="Senha" class="text-danger" id="erro-senha"></span>
+            </div>
+            <div class="form-group form-check p-0 mt-3 mb-0">
+                <div class="form-check form-check-inline">
+                    <input asp-for="Cargo" class="form-check-input" value="1" type="radio" id="administrador">
+                    <label asp-for="Cargo" class="form-check-label" for="inlineRadio1">Administrador</label> 
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Cargo" class="form-check-input" value="2" type="radio" id="cliente">
+                    <label asp-for="Cargo" class="form-check-label" for="inlineRadio2">Cliente</label>
+                </div>
+            </div>
+            <span asp-validation-for="Cargo" class="text-danger" id="erro-cargo"></span>
+            <div class="form-group">
+                <input type="submit" value="Cadastrar" class="btn btn-dark mt-3" id="btn_criaCargo"/>
                 @Html.Raw(ViewBag.Script)
-                <a asp-action="Index" class="btn btn-light ml-4">Voltar</a>
+                <a asp-action="Index" class="btn btn-light mt-3 ml-3">Voltar</a>
             </div>
         </form>
     </div>
@@ -39,6 +55,11 @@
     document.getElementById('nome').addEventListener('input', limparAlertaNome);
     document.getElementById('email').addEventListener('input', limparAlertaEmail);
     document.getElementById('minimo').addEventListener('input', limparAlertaMinimo);
+    document.getElementById('senha').addEventListener('input', limparAlertaSenha);
+    document.getElementById('administrador').checked = false;
+    document.getElementById('cliente').checked = false;
+    document.getElementById('administrador').addEventListener('input', LimparAlertaCargo);
+    document.getElementById('cliente').addEventListener('input', LimparAlertaCargo);
 
     function limitarTamanho(elemento, tamanhoMaximo) {
         if (elemento.value.length > tamanhoMaximo) {
@@ -57,4 +78,8 @@
         var erroMinimo = document.getElementById('erro-minimo');
         erroMinimo.textContent = '';
     }
+    function limparAlertaSenha() {
+        var erroSenha = document.getElementById('erro-senha');
+        erroSenha.textContent = '';
+    } 
 </script>

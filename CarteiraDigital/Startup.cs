@@ -1,8 +1,11 @@
+using CarteiraDigital.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace CarteiraDigital
 {
@@ -18,8 +21,22 @@ namespace CarteiraDigital
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection")); 
-            services.AddControllersWithViews(); 
+            services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddControllersWithViews();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ISessao, Sessao>(); 
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(1000);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            // Configuração da sessão
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,7 +45,7 @@ namespace CarteiraDigital
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink(); 
+                app.UseBrowserLink();
             }
             else
             {
@@ -36,19 +53,21 @@ namespace CarteiraDigital
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // Middleware de sessão
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Login}/{id?}");
             });
         }
     }

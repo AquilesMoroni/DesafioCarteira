@@ -14,22 +14,15 @@ namespace CarteiraDigital.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(Pessoa pessoa)
         {
-            return View();
-        }
+            return View(pessoa); 
+        } 
 
         public IActionResult Privacy()
         {
             return View();
         }
-
-        //public IActionResult TestSweetAlert()
-        //{
-        //    TempData["SwalSuccess"] = "O teste do Sweet Alert foi realizado com sucesso!";
-        //    return RedirectToAction("Index"); 
-        //}
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

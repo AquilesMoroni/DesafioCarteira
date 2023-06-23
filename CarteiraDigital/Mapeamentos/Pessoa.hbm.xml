@@ -9,9 +9,9 @@
 			<generator class="identity"/>
 		</id>
 
-		<property name="Nome" not-null="true"/> 
+		<property name="Nome" not-null="true"/>
 
-		<property name="Email" not-null="true"/>
+		<property name="Email" not-null="true" unique="true"/>
 
 		<property name="Salario"/>
 
@@ -21,6 +21,10 @@
 
 		<property name="Saldo" not-null="true"/>
 
+		<property name="Senha" not-null="true"/>
+
+		<property name="Cargo" not-null="true"/> 
+		
 		<bag name="Entradas" inverse="true" cascade="all">
 			<key column="PessoaId"/>
 			<one-to-many class="MovimentoEntrada"/>
