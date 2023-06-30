@@ -1,6 +1,6 @@
-﻿@model CarteiraDigital.Models.Pessoa 
+﻿@model CarteiraDigital.Models.Pessoa
 
-<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Olá, @Model.Nome<img src="/imgs/LogoMulti.png" class="pl-1" alt="logo" width="65" /></a>
+<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Olá, @Model.Nome<img src="/imgs/LogoMulti.png" class="ml-3" alt="logo" width="65" /></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,10 +13,17 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
         </li>
-        @if (Model != null && Model.Cargo == 1) { 
+        @if (Model.Cargo == 1)
+         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Pessoa" asp-action="Index">Clientes</a>
-            </li> 
+            </li>
+         }
+        else if (Model.Cargo == 2)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Pessoa" asp-action="Cliente">Conta</a>
+            </li>
         } 
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>

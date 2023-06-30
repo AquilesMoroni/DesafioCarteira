@@ -1,5 +1,8 @@
-﻿using CarteiraDigital.Models;
+﻿using CarteiraDigital.Filters;
+using CarteiraDigital.Helper;
+using CarteiraDigital.Models;
 using CarteiraDigital.Repositorios;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarteiraDigital.Controllers
 {
+    //[PaginaRestritaSomenteAdmin]
     public class PessoaController : Controller
     {
         private readonly PessoaRepository pessoaRepository;
@@ -17,12 +21,24 @@ namespace CarteiraDigital.Controllers
             pessoaRepository = new PessoaRepository(session);
         }
 
+        //Tela só de Adm: 
         [HttpGet]
         public ActionResult Index()
         {
             IList<Pessoa> Pessoas = pessoaRepository.FindByID().ToList();
             return View(Pessoas.Reverse<Pessoa>());
-        } 
+        }
+        
+        //Tela só de Cliente: 
+        //[HttpGet]
+        //public ActionResult Cliente(Pessoa pessoa)
+        //{
+
+        //    Pessoa pessoa = pessoaRepository.FindByEmail(pessoa.Email);
+
+
+        //    return View(pessoa);  
+        //}
 
         [HttpGet]
         public ActionResult Cadastrar()

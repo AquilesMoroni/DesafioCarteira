@@ -1,10 +1,12 @@
-﻿using CarteiraDigital.Models;
+﻿using CarteiraDigital.Filters;
+using CarteiraDigital.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace CarteiraDigital.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

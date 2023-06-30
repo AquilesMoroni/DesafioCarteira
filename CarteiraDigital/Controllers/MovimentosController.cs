@@ -1,4 +1,5 @@
-﻿using CarteiraDigital.Models;
+﻿using CarteiraDigital.Filters;
+using CarteiraDigital.Models;
 using CarteiraDigital.Repositorios;
 using CarteiraDigital.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarteiraDigital.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class MovimentosController : Controller
     {
         private readonly MovimentosRepository movimentosRepository;

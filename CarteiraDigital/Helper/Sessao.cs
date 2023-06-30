@@ -1,4 +1,5 @@
-﻿using CarteiraDigital.ViewModel;
+﻿using CarteiraDigital.Models;
+using CarteiraDigital.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
@@ -17,23 +18,23 @@ namespace CarteiraDigital.Helper
             _httpContext = httpContext; 
         }
 
-        public LoginViewModel BuscarSessaoUsuario()
+        public Pessoa BuscarSessaoUsuario()
         {
             string sessaoUsuario = _httpContext.HttpContext.Session.GetString("sessaoUsuarioLogado");
 
             if (string.IsNullOrEmpty(sessaoUsuario)) return null;
 
-            return JsonConvert.DeserializeObject<LoginViewModel>(sessaoUsuario); 
+            return JsonConvert.DeserializeObject<Pessoa>(sessaoUsuario);
         }
 
-        public void CriarSessaoUsuario(LoginViewModel login)
+        public void CriarSessaoUsuario(Pessoa pessoa)
         {
-            string valor = JsonConvert.SerializeObject(login);
+            string valor = JsonConvert.SerializeObject(pessoa); 
 
             _httpContext.HttpContext.Session.SetString("sessaoUsuarioLogado", valor); 
         }
 
-        public void FinalizarSessaoUsuario()
+        public void RemoverSessaoUsuario()
         {
             _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado"); 
         }

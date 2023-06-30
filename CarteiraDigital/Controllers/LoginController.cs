@@ -14,15 +14,16 @@ namespace CarteiraDigital.Controllers
     public class LoginController : Controller
     {
         private readonly PessoaRepository pessoaRepository;
-        private readonly ISessao _sessao; 
+
+        private readonly ISessao _sessao;
 
         public LoginController(NHibernate.ISession session, ISessao sessao)
         {
             pessoaRepository = new PessoaRepository(session);
-            _sessao = sessao;  
+            _sessao = sessao;
         }
 
-        public IActionResult Login()
+        public IActionResult Index()
         {
             //Se o usuário estiver logado, redirecione para a home:
             if (_sessao.BuscarSessaoUsuario() != null) return RedirectToAction("Index", "Home"); 
@@ -32,35 +33,34 @@ namespace CarteiraDigital.Controllers
 
         public IActionResult Sair()
         {
-            _sessao.FinalizarSessaoUsuario();
-
-            return RedirectToAction("Login", "Login"); 
+            _sessao.RemoverSessaoUsuario();
+            return RedirectToAction("Index", "Login"); 
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel login)
+        public IActionResult Entrar(LoginModel loginModel) 
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Pessoa pessoa = pessoaRepository.FindByEmail(login.Email);
+                    Pessoa usuario = pessoaRepository.FindByEmail(loginModel.Email);
 
-                    if (pessoa != null && login.Email == pessoa.Email && login.Senha == pessoa.Senha)
+                    if (usuario != null) 
                     {
-                        _sessao.CriarSessaoUsuario(login);
-                        return RedirectToAction("Index", "Home", new { pessoa });   
-                    } 
-
-                    ViewBag.MensagemErro = "Ops, Usuário Não Encontrado! Tente Novamente!";
+                        if (loginModel.Email == usuario.Email && loginModel.Senha == usuario.Senha)
+                        {
+                            _sessao.CriarSessaoUsuario(usuario); 
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
                 }
 
-                return View("Login");
+                return View("Index");
             }
-            catch (Exception erro)
+            catch
             {
-                ViewBag.MensagemErro = $"Ops, não foi possível efetuar o Login. Por favor, verifique o seu Email e Senha e tente novamente! {erro.Message}";
-                return RedirectToAction("Login");
+                return RedirectToAction("Index");
             }
         }
     }

@@ -22,8 +22,8 @@ namespace CarteiraDigital
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
-            services.AddControllersWithViews();
 
+            services.AddControllersWithViews();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ISessao, Sessao>(); 
 
@@ -56,6 +56,7 @@ namespace CarteiraDigital
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -67,7 +68,7 @@ namespace CarteiraDigital
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Login}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

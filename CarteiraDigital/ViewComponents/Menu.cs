@@ -17,9 +17,9 @@ namespace CarteiraDigital.ViewComponents
 
             if (string.IsNullOrEmpty(sessaoUsuario)) return null;
 
-            Pessoa pessoa = JsonConvert.DeserializeObject<Pessoa>(sessaoUsuario); 
+            Pessoa usuario = JsonConvert.DeserializeObject<Pessoa>(sessaoUsuario); 
 
-            return View(pessoa); 
+            return View(usuario); 
         } 
     }
 } 

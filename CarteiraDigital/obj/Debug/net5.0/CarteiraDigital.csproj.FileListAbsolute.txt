@@ -548,6 +548,8 @@ C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\GeraMovimentos.cshtml.g.cs
 C:\Users\Aquiles Moroni\Documents\GitHub\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\GeraMovimentos.cshtml.g.cs
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Movimentos\Extrato.cshtml.g.cs
-C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Login\Login.cshtml.g.cs
-C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Shared\layout_Login.cshtml.g.cs
 C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Shared\Components\Menu\Default.cshtml.g.cs
+C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Shared\_LayoutDeslogado.cshtml.g.cs
+C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs
+C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Restrito\Index.cshtml.g.cs
+C:\Users\Multisoftware Nstech\Desktop\DesafioCarteira\CarteiraDigital\obj\Debug\net5.0\Razor\Views\Pessoa\Cliente.cshtml.g.cs
